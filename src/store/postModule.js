@@ -1,10 +1,7 @@
+import axios from 'axios'
 export const postModule = {
   state: () => ({
-    posts: [
-      { text: "xddddd", id: 1 },
-      { text: "xddddd", id: 2 },
-      { text: "xddddd", id: 3 },
-    ],
+    posts: [],
 
   }),
   getters: {},
@@ -15,10 +12,29 @@ export const postModule = {
 
   },
   actions: {
-    // removePost({ state, commit, post }) {
-    //   console.log("ff");
-    //   const newArr = state.posts.filter((p) => p.id !== state.post.id);
-    //   commit("setPosts", newArr);
-    // },
+    async getPosts({state, commit}){
+      fetch('http://localhost:8080/api/texts/')
+      .then(json=>json.json())
+      .then(data=>{
+        commit('setPosts', [...data])
+      })
+    },
+    async deletePost({state,commit,dispatch},post){
+      try {
+        await axios.delete(`http://localhost:8080/api/texts/${post.id}`)
+        dispatch('getPosts')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addPost({state,commit,dispatch},post){
+        try {
+          const res = await axios.post('http://localhost:8080/api/texts/', {text: post.text})
+          dispatch('getPosts')
+        } catch (error) {
+          console.log(error)
+        }
+    }
   },
+  namespaced: true
 };

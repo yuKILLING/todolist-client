@@ -1,8 +1,12 @@
 <template>
     <div class="post">
         <div class="text">
-            <div><input type="checkbox"></div>
-            <div>{{ post.text }}</div>
+            <div><button @click="buttonClicked" class="checkBTN">
+                    <i class="fa-regular fa-circle" v-if="isPressed === false"></i>
+                    <i class="fa-solid fa-circle" v-else></i>
+                </button></div>
+            <div :class="{ 'line_through': isPressed }" style="font-size: 23px;"><label class="label_text">{{
+                post.title }}</label></div>
         </div>
         <div>
             <MyButton @click="$emit('remove', post)"> </MyButton>
@@ -18,6 +22,23 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            isPressed: false
+        }
+    },
+    methods: {
+        buttonClicked() {
+            if (this.isPressed) {
+                console.log('true')
+                this.isPressed = false
+            }
+            else {
+                console.log('false')
+                this.isPressed = true
+            }
+        }
+    }
 }
 </script>
 
@@ -41,6 +62,17 @@ export default {
     gap: 10px;
     align-items: center;
     justify-content: center;
+}
+
+.line_through {
+    text-decoration: line-through;
+    text-decoration-thickness: 2.5px;
+}
+
+.checkBTN {
+    border: none;
+    outline: none;
+    background: transparent;
 }
 
 .text>div>input {

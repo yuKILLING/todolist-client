@@ -1,6 +1,6 @@
 <template>
     <div class="input-form">
-        <MyInput v-model="post.text" placeholder="Write, to add a note"> </MyInput>
+        <MyInput v-model="post.text" @input="updatemodelValue" placeholder="Write, to add a note"> </MyInput>
         <MyButtonInpt @click="createPost">Add <i class="fa-solid fa-plus"></i> </MyButtonInpt>
     </div>
 </template>
@@ -15,19 +15,22 @@ export default {
             }
         }
     },
+    props: {
+        modelValue: [String, Number]
+    },
     methods: {
         createPost() {
             if (this.post.text === '') {
                 alert('Write something')
             }
             else {
-                console.log('ff')
                 this.post.id = Date.now()
                 this.$emit('create', this.post)
-                this.post = {
-                    text: ''
-                }
+                this.$emit('update:modelValue', '')
             }
+        },
+        updatemodelValue(event) {
+            this.$emit('update:modelValue', event.target.value)
         }
     }
 }

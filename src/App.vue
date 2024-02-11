@@ -4,7 +4,7 @@
       <img src="./images/Logo.png" class="logo" alt="">
     </header>
     <InputForm class="inptform" @create="createPost"></InputForm>
-    <PostList class="Post_List" :posts="posts" @remove="remove" v-if="this.posts.length > 0"></PostList>
+    <PostList class="Post_List" :posts="posts" @remove="removePost" v-if="this.posts.length > 0"></PostList>
     <div v-else style="margin-top:100px; font-size: 15px;">
       <h1>There are no notes here o/</h1>
     </div>
@@ -26,19 +26,15 @@ export default {
     }
   },
   methods: {
-    createPost(post) {
-      this.posts.push(post)
-    },
     ...mapMutations({
       setPosts: 'post/setPosts',
       setEmpty: 'post/setEmpty'
     }),
-    remove(post) {
-      console.log('gg');
-      const newPosts = this.posts.filter(p => p.id !== post.id);
-      console.log(newPosts);
-      this.$store.commit('setPosts', newPosts);
-    },
+    ...mapActions({
+      loadPosts: 'post/getPosts',
+      createPost: 'post/addPost',
+      removePost: 'post/deletePost'
+    }),
 
   },
   computed: {
@@ -47,6 +43,9 @@ export default {
 
     }),
   },
+  mounted() {
+    this.loadPosts()
+  }
 
 }
 </script>

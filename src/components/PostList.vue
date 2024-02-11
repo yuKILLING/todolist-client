@@ -1,7 +1,7 @@
 <template>
     <div>
         <transition-group name="user-list" tag="p">
-            <PostItem v-for="post in posts" :post="post" :key="post.text" @remove = "$emit('remove',post)"> </PostItem>
+            <PostItem v-for="post in posts" :post="post" :key="post.id" @remove="$emit('remove', post)"> </PostItem>
         </transition-group>
     </div>
 </template>
@@ -27,16 +27,20 @@ export default {
 
 .user-list-enter-active,
 .user-list-leave-active {
-    transition: all 0.4s ease;
+    transition: all 0.4s ease-in-out;
 }
 
 .user-list-enter-from,
 .user-list-leave-to {
     opacity: 0;
-    transform: translateX(130px);
+    transform: translateY(50px);
 }
 
 .user-list-move {
     transition: transform 0.4s ease;
+}
+
+.user-list-leave-active {
+    position: absolute;
 }
 </style>
