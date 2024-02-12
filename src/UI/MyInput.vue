@@ -28,5 +28,6 @@ export default {
     background: rgb(63, 63, 63);
     padding-left: 10px;
     font-size: 20px;
+    padding-right: 70px;
 }
 </style>

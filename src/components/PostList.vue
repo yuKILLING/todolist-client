@@ -1,7 +1,7 @@
 <template>
     <div>
-        <transition-group name="user-list" tag="p">
-            <PostItem v-for="post in posts" :post="post" :key="post.id" @remove="$emit('remove', post)"> </PostItem>
+        <transition-group name="user-list">
+            <PostItem v-for="post in posts"  :post="post" :key="post.id" @remove="$emit('remove', post)"> </PostItem>
         </transition-group>
     </div>
 </template>
@@ -11,7 +11,7 @@ import PostItem from './PostItem.vue';
 export default {
     components: { PostItem },
     props: {
-        posts: {
+        posts: {                                            
             type: Array,
             required: true
         }

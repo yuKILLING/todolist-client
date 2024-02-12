@@ -6,7 +6,7 @@
     <InputForm class="inptform" @create="createPost"></InputForm>
     <PostList class="Post_List" :posts="posts" @remove="removePost" v-if="this.posts.length > 0"></PostList>
     <div v-else style="margin-top:100px; font-size: 15px;">
-      <h1>There are no notes here o/</h1>
+      <h1 style="color: white;">There are no notes here o/</h1>
     </div>
 
   </div>

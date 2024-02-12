@@ -29,7 +29,9 @@ export const postModule = {
     },
     async addPost({state,commit,dispatch},post){
         try {
-          const res = await axios.post('http://localhost:8080/api/texts/', {text: post.text})
+          const shortId = post.id.toString().slice(0, 7);
+          console.log(shortId)
+          const res = await axios.post('http://localhost:8080/api/texts/', {text: post.text, id: parseInt(shortId)})
           dispatch('getPosts')
         } catch (error) {
           console.log(error)
